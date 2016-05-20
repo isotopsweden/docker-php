@@ -31,8 +31,6 @@ RUN curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 
 ENV SITEPATH=/var/www/html
 
-COPY site.conf /etc/apache2/sites-enabled/
-
 COPY docker-init.sh /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/docker-init.sh

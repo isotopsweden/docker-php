@@ -1,3 +1,3 @@
 #! /bin/bash
-sed -i "s|SITEPATH|$SITEPATH|g" /etc/apache2/sites-enabled/site.conf
+sed -i "s|DocumentRoot /var/www/html|DocumentRoot $SITEPATH|g" /etc/apache2/apache2.conf
 apache2-foreground
