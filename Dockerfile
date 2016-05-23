@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
 && docker-php-ext-install \
    mbstring \
    mcrypt \
+   mysqli \
    pdo_dblib \
    pdo_mysql \
    soap \
