@@ -1,8 +1,8 @@
 #! /bin/bash
 
 # Run before script if exists.
-if [ -f ./scripts/before-apache.sh ]; then
-	./scripts/before-apache.sh
+if [ -f ./scripts/docker/before-apache.sh ]; then
+	./scripts/docker/before-apache.sh
 fi
 
 sed -i "s#^DocumentRoot /var/www/html\$#DocumentRoot $SITEPATH#" /etc/apache2/apache2.conf
