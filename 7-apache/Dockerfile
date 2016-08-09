@@ -1,12 +1,6 @@
 FROM php:7-apache
 
-# Install redis extension for PHP
-ENV PHPREDIS_VERSION=2.2.7
-RUN cd /usr/src/php/ext \
-    && curl -q https://codeload.github.com/phpredis/phpredis/tar.gz/$PHPREDIS_VERSION | tar -xz \
-    && docker-php-ext-install phpredis-$PHPREDIS_VERSION
-
-# Install php modules
+# Install php modules and git
 RUN apt-get update && apt-get install -y \
    freetds-dev \
    libicu-dev \
@@ -18,15 +12,19 @@ RUN apt-get update && apt-get install -y \
 && cp -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/ \
 && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
 && docker-php-ext-install \
-   mbstring \
    mcrypt \
    mysqli \
    pdo_dblib \
    pdo_mysql \
    soap \
-   zip \
-&& cd /usr/src/php \
-&& make clean
+   zip
+
+# Install redis extension for PHP
+RUN mkdir -p cd /usr/src/php/ext \
+    && cd /usr/src/php/ext \
+    && git clone -b php7 --single-branch https://github.com/phpredis/phpredis.git \
+    && cd phpredis \
+    && phpize && ./configure && make && make install
 
 RUN a2enmod rewrite
 
