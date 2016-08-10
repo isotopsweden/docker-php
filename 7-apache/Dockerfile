@@ -24,7 +24,8 @@ RUN mkdir -p cd /usr/src/php/ext \
     && cd /usr/src/php/ext \
     && git clone -b php7 --single-branch https://github.com/phpredis/phpredis.git \
     && cd phpredis \
-    && phpize && ./configure && make && make install
+    && phpize && ./configure && make && make install \
+    && touch /usr/local/etc/php/conf.d/redis.ini && echo extension=redis.so > /usr/local/etc/php/conf.d/redis.ini
 
 RUN a2enmod rewrite
 
