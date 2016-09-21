@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
    libmcrypt-dev \
    libxml2-dev \
    git \
+   bzip2 \
 && rm -r /var/lib/apt/lists/* \
 && cp -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/ \
 && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
