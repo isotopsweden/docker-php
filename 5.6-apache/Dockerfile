@@ -1,11 +1,5 @@
 FROM php:5.6-apache
 
-# Install redis extension for PHP
-ENV PHPREDIS_VERSION=2.2.7
-RUN cd /usr/src/php/ext \
-    && curl -q https://codeload.github.com/phpredis/phpredis/tar.gz/$PHPREDIS_VERSION | tar -xz \
-    && docker-php-ext-install phpredis-$PHPREDIS_VERSION
-
 # Install php modules
 RUN apt-get update && apt-get install -y \
    freetds-dev \
@@ -28,6 +22,14 @@ RUN apt-get update && apt-get install -y \
    zip \
 && cd /usr/src/php \
 && make clean
+
+# Install redis extension for PHP
+RUN mkdir -p cd /usr/src/php/ext \
+    && cd /usr/src/php/ext \
+    && git clone -b master --single-branch https://github.com/phpredis/phpredis.git \
+    && cd phpredis \
+    && phpize && ./configure && make && make install \
+    && touch /usr/local/etc/php/conf.d/redis.ini && echo extension=redis.so > /usr/local/etc/php/conf.d/redis.ini
 
 RUN a2enmod rewrite
 
