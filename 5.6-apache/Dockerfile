@@ -19,9 +19,7 @@ RUN apt-get update && apt-get install -y \
    pdo_dblib \
    pdo_mysql \
    soap \
-   zip \
-&& cd /usr/src/php \
-&& make clean
+   zip
 
 # Install redis extension for PHP
 RUN mkdir -p cd /usr/src/php/ext \
