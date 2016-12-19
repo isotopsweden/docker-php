@@ -1,4 +1,4 @@
-FROM php:7-apache
+FROM php:7.1-apache
 
 # Install php modules and git
 RUN apt-get update && apt-get install -y \
@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
    libmcrypt-dev \
    libxml2-dev \
    git \
+   mysql-client \
 && rm -r /var/lib/apt/lists/* \
 && cp -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/ \
 && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
