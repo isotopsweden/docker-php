@@ -8,8 +8,9 @@ RUN apt-get update && apt-get install -y \
    libmcrypt-dev \
    libxml2-dev \
    git \
-   mysql-client \
+   default-mysql-client \
    zlib1g-dev \
+   libzip-dev \
    redis-tools \
 && rm -r /var/lib/apt/lists/* \
 && cp -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/ \
@@ -19,7 +20,8 @@ RUN apt-get update && apt-get install -y \
    pdo_dblib \
    pdo_mysql \
    soap \
-   zip
+   zip \
+   opcache
 
 # Install redis extension for PHP
 RUN mkdir -p cd /usr/src/php/ext \
