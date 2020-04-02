@@ -12,9 +12,11 @@ RUN apt-get update && apt-get install -y \
    zlib1g-dev \
    libzip-dev \
    redis-tools \
+&& pecl install redis-2.2.8 \
 && rm -r /var/lib/apt/lists/* \
 && cp -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/ \
 && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
+&& docker-php-ext-enable redis \
 && docker-php-ext-install \
    mbstring \
    mcrypt \
@@ -23,14 +25,6 @@ RUN apt-get update && apt-get install -y \
    pdo_mysql \
    soap \
    zip
-
-# Install redis extension for PHP
-RUN mkdir -p cd /usr/src/php/ext \
-    && cd /usr/src/php/ext \
-    && git clone -b master --single-branch https://github.com/phpredis/phpredis.git \
-    && cd phpredis \
-    && phpize && ./configure && make && make install \
-    && touch /usr/local/etc/php/conf.d/redis.ini && echo extension=redis.so > /usr/local/etc/php/conf.d/redis.ini
 
 RUN a2enmod rewrite
 
