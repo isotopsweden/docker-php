@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.0.5-apache
 
 # Install php modules and git
 RUN apt-get update && apt-get install -y \
